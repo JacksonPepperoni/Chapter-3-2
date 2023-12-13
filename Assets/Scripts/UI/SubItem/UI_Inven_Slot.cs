@@ -62,9 +62,13 @@ public class UI_Inven_Slot : UI_Base
 
     void Refresh()
     {
-        GetImage((int)Images.ItemIcon).color = (Managers.Data.userData.invenGetArray[slotNumber]) ? Color.white : Color.gray;
-        GetObject((int)GameObjects.EquipCheck).SetActive(Managers.Data.userData.isWearArray[slotNumber]);
 
+        GetImage((int)Images.ItemIcon).sprite = Managers.Data.items_Equip[slotNumber].IconImage;
+
+        GetImage((int)Images.ItemIcon).color = (Managers.Data.userData.invenGetArray[slotNumber]) ? Color.white : Color.gray;
+
+        if (GetObject((int)GameObjects.EquipCheck) != null)
+            GetObject((int)GameObjects.EquipCheck).SetActive(Managers.Data.userData.isWearArray[slotNumber]);
 
     }
 
@@ -88,9 +92,9 @@ public class UI_Inven_Slot : UI_Base
         Managers.Data.SaveUserDataToJson();
 
 
-        Managers.Game.OnEquipChanged();
+        Managers.Game.OnEquipChanged?.Invoke();
 
-        Debug.Log($"{Managers.Data.items_Equip[slotNumber].name} ÀåÂø¿Ï·á");
+        Debug.Log($"{Managers.Data.items_Equip[slotNumber].name} ìž¥ì°©ì™„ë£Œ");
     }
 
     public void UnEquip()
@@ -98,8 +102,8 @@ public class UI_Inven_Slot : UI_Base
         Managers.Data.userData.isWearArray[slotNumber] = false;
         Refresh();
         Managers.Data.SaveUserDataToJson();
-        Managers.Game.OnEquipChanged();
-        Debug.Log($"{Managers.Data.items_Equip[slotNumber].name} ÀåÂøÇØÁ¦");
+        Managers.Game.OnEquipChanged?.Invoke();
+        Debug.Log($"{Managers.Data.items_Equip[slotNumber].name} ìž¥ì°©í•´ì œ");
     }
 
 
@@ -109,7 +113,7 @@ public class UI_Inven_Slot : UI_Base
         GetImage((int)Images.Highlight_Back).gameObject.SetActive(true);
         GetImage((int)Images.Highlight_Front).gameObject.SetActive(true);
 
-        Managers.Game.OnEquipInfoEnter(item_Equip.id);
+        Managers.Game.OnEquipInfoEnter?.Invoke(item_Equip.id);
 
     }
     public void OnButtonExit(BaseEventData data)
@@ -117,6 +121,11 @@ public class UI_Inven_Slot : UI_Base
         GetImage((int)Images.Highlight_Back).gameObject.SetActive(false);
         GetImage((int)Images.Highlight_Front).gameObject.SetActive(false);
 
-        Managers.Game.OnEquipInfoExit();
+        Managers.Game.OnEquipInfoExit?.Invoke();
+    }
+
+    private void OnDisable()
+    {
+        Managers.Game.OnEquipChanged -= Refresh;
     }
 }

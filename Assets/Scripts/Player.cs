@@ -20,63 +20,61 @@ public class Player : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rigid;
-    private Camera _camera;
-    [HideInInspector]
-    public Animator anim;
-    private int hashIsWalk = Animator.StringToHash("isWalk");
-    private int hashIsDuck = Animator.StringToHash("isDuck");
+
+    private Animator _anim;
+    private int _hashIsWalk = Animator.StringToHash("isWalk");
+    private int _hashIsDuck = Animator.StringToHash("isDuck");
 
 
     private Vector2 moveInput;
 
-    private Npc npc; // ¡¢√À¡ﬂ¿Œ∞≈
+    private Npc npc; // Ï†ëÏ¥âÏ§ëÏù∏Í±∞
 
-    [SerializeField] NameTag NameTagObj;
+   [SerializeField] private NameTag _nameTag;
 
 
-
-    public int atk = 0;
-    public int def = 0;
-    public int maxHp = 0;
-
+    [HideInInspector] public int atk = 0;
+    [HideInInspector] public int def = 0;
+    [HideInInspector] public int maxHp = 0;
 
 
 
     private void Awake()
     {
-        _camera = Camera.main;
-        anim = transform.GetChild(0).GetComponent<Animator>();
-        spriteRenderer = anim.gameObject.GetComponent<SpriteRenderer>();
+        _anim = transform.GetChild(0).GetComponent<Animator>();
+        spriteRenderer = _anim.gameObject.GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
 
     }
 
     private void Start()
     {
-        NameChange("ªÍ≈‰≥¢≈‰≥¢"); // ±‚∫ª¿Ã∏ß
+        NameChange("ÏÇ∞ÌÜ†ÎÅºÌÜ†ÎÅº"); // Í∏∞Î≥∏Ïù¥Î¶Ñ
+        Managers.Game.OnEquipChanged -= StatUpdate;
         Managers.Game.OnEquipChanged += StatUpdate;
 
         StatUpdate();
 
     }
 
+    private void OnDisable()
+    {
+        Managers.Game.OnEquipChanged -= StatUpdate;
+    }
 
-    public bool Inven_Add(int number)
+
+    public void Inven_Add(int number)
     {
         Managers.Data.userData.invenGetArray[number] = true;
-
         Managers.Data.SaveUserDataToJson();
-        return true;
 
     }
-    public bool Inven_Delete(int number)
+    public void Inven_Delete(int number)
     {
         Managers.Data.userData.invenGetArray[number] = false;
-
         Managers.Data.SaveUserDataToJson();
-        return true;
     }
-    void StateReset() //±‚∫ªΩ∫≈»
+    void StateReset() //Í∏∞Î≥∏Ïä§ÌÉØ
     {
         atk = 10;
         def = 10;
@@ -84,7 +82,7 @@ public class Player : MonoBehaviour
     }
     void StatUpdate()
     {
-        StateReset(); // √ ±‚ Ω∫≈»¿∏∑Œ
+        StateReset(); // Ï¥àÍ∏∞ Ïä§ÌÉØÏúºÎ°ú
 
         for (int i = 0; i < Managers.Data.userData.isWearArray.Length; i++)
         {
@@ -96,18 +94,19 @@ public class Player : MonoBehaviour
             }
         }
 
-       Managers.Game.OnStateTextChanged();
+
+        Managers.Game.OnStateTextChanged?.Invoke();
 
     }
 
 
     private void Update()
     {
-        if (anim.GetBool(hashIsDuck) || state != State.Play) return;
+        if (_anim.GetBool(_hashIsDuck) || state != State.Play) return;
 
 
         rigid.MovePosition(rigid.position + moveInput);
-        anim.SetBool(hashIsWalk, (moveInput.x != 0 || moveInput.y != 0));
+        _anim.SetBool(_hashIsWalk, (moveInput.x != 0 || moveInput.y != 0));
         if (Mathf.Abs(moveInput.x) != 0) spriteRenderer.flipX = (moveInput.x < 0);
 
     }
@@ -117,7 +116,7 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("NPC"))
         {
             npc = collision.gameObject.GetComponent<Npc>();
-            NameTagObj.gameObject.SetActive(false);
+            _nameTag.gameObject.SetActive(false);
         }
 
     }
@@ -125,11 +124,11 @@ public class Player : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         npc = null;
-        NameTagObj.gameObject.SetActive(true);
+        _nameTag.gameObject.SetActive(true);
     }
 
 
-    //°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·
+    //‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†
 
 
 
@@ -143,23 +142,23 @@ public class Player : MonoBehaviour
     {
         if (state != State.Play) return;
 
-        anim.SetBool(hashIsDuck, value.isPressed);
+        _anim.SetBool(_hashIsDuck, value.isPressed);
 
     }
     public void OnJump(InputValue value)
     {
         if (state != State.Play) return;
 
-        if (!value.isPressed) Debug.Log("¡°«¡");
+        if (!value.isPressed) Debug.Log("Ï†êÌîÑ");
 
 
     }
     public void OnTalk(InputValue value)
     {
-        if (!value.isPressed) Debug.Log("¥Î»≠");
+        if (!value.isPressed) Debug.Log("ÎåÄÌôî");
 
         if (state == State.Stop) return;
-        if (!value.isPressed || npc == null || anim.GetBool(hashIsDuck)) return;  // ¥≠∑∂¿ª∂ß true ∂™∂ß false »£√‚
+        if (!value.isPressed || npc == null || _anim.GetBool(_hashIsDuck)) return;  // ÎàåÎ†ÄÏùÑÎïå true ÎïîÎïå false Ìò∏Ï∂ú
 
 
         if (state == State.Event)
@@ -169,7 +168,7 @@ public class Player : MonoBehaviour
         }
 
         state = State.Event;
-        anim.SetBool(hashIsWalk, false);
+        _anim.SetBool(_hashIsWalk, false);
 
         npc.Talk();
         //  gameManager.dialogue.talkDic = npc.talkData;
@@ -178,13 +177,13 @@ public class Player : MonoBehaviour
     }
 
 
-    //°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·°·
+    //‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†‚ñ†
 
 
     public void NameChange(string newName)
     {
         name = newName;
-        NameTagObj.SizeChange(newName);
+        _nameTag.SizeChange(newName);
     }
 
 

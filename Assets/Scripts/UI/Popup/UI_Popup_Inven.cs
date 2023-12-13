@@ -1,5 +1,6 @@
-﻿using System;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Popup_Inven : UI_Popup
 {
@@ -36,7 +37,7 @@ public class UI_Popup_Inven : UI_Popup
     }
 
 
-    private void Start()
+    public void OnEnabled()
     {
         Initialize();
 
@@ -46,19 +47,21 @@ public class UI_Popup_Inven : UI_Popup
     {
         if (!base.Initialize()) return false;
 
-        Bind<TextMeshProUGUI>(typeof(Texts));
+        BindText(typeof(Texts));
         BindObject(typeof(GameObjects));
         BindButton(typeof(Buttons));
-
+        BindImage(typeof(Images));
 
         GetButton((int)Buttons.RightBtn).gameObject.BindEvent(OnBtnRight);
         GetButton((int)Buttons.LeftBtn).gameObject.BindEvent(OnBtnLeft);
-        GetButton((int)Buttons.CancelBtn).gameObject.BindEvent(OnPointerDown);
+        GetButton((int)Buttons.CancelBtn).gameObject.BindEvent(OnBtnCancel);
 
         GetObject((int)GameObjects.InfoPanel).SetActive(false);
 
-        AddSlot();
 
+        GetImage((int)Images.Equip1).gameObject.SetActive(false);
+        GetImage((int)Images.Equip2).gameObject.SetActive(false);
+        GetImage((int)Images.Equip3).gameObject.SetActive(false);
 
         Managers.Game.OnEquipInfoEnter -= ShowItemInfo;
         Managers.Game.OnEquipInfoEnter += ShowItemInfo;
@@ -66,15 +69,13 @@ public class UI_Popup_Inven : UI_Popup
         Managers.Game.OnEquipInfoExit -= CloseItemInfo;
         Managers.Game.OnEquipInfoExit += CloseItemInfo;
 
-        Managers.Game.OnEquipChanged();
+        Managers.Game.OnEquipChanged?.Invoke();
 
-
-        GetImage((int)Images.Equip1).gameObject.SetActive(false);
-        GetImage((int)Images.Equip2).gameObject.SetActive(false);
-        GetImage((int)Images.Equip3).gameObject.SetActive(false);
+        AddSlot();
 
         return true;
     }
+
 
 
     private void AddSlot()
@@ -90,11 +91,21 @@ public class UI_Popup_Inven : UI_Popup
 
     public void ShowItemInfo(int id)
     {
+
+
         GetText((int)Texts.ItemNameText).text = Managers.Data.items_Equip[id].name;
         GetText((int)Texts.BuffText).text =
                  ((Managers.Data.items_Equip[id].buff_Atk != 0) ? $"공격력 : {Managers.Data.items_Equip[id].buff_Atk}    " : "") +
                  ((Managers.Data.items_Equip[id].buff_Def != 0) ? $"방어력 : {Managers.Data.items_Equip[id].buff_Def}    " : "") +
                  ((Managers.Data.items_Equip[id].buff_MaxHp != 0) ? $"최대생명력 : {Managers.Data.items_Equip[id].buff_MaxHp}" : "");
+
+        //  if(GetImage((int)Images.ItemIcon).sprite != null)
+        GetImage((int)Images.ItemIcon).sprite = Managers.Data.items_Equip[id].IconImage;
+
+
+
+
+        //  GetImage((int)Images.ItemIcon).sprite = Resources.Load<Sprite>($"Test/{Managers.Data.items_Equip[id].IconImage.name}");
 
 
 
@@ -115,18 +126,23 @@ public class UI_Popup_Inven : UI_Popup
     {
         Managers.UI.ClosePopupUI(this);
         Managers.UI.ShowPopupUI<UI_Popup_State>();
-
     }
     public void OnBtnRight()
     {
         Managers.UI.ClosePopupUI(this);
         Managers.UI.ShowPopupUI<UI_Popup_State>();
-
     }
 
-    public void OnPointerDown()
+    public void OnBtnCancel()
     {
+
+
         Managers.UI.ClosePopupUI(this);
     }
+    private void OnDisable()
+    {
+        Managers.Game.OnEquipInfoEnter -= ShowItemInfo;
+        Managers.Game.OnEquipInfoExit -= CloseItemInfo;
 
+    }
 }

@@ -25,6 +25,7 @@ public class ResourceManager : MonoBehaviour
 
         string loadKey = key;
 
+
         if (key.Contains(".sprite"))
             loadKey = $"{key}[{key.Replace(".sprite", "")}]";
 
@@ -120,4 +121,7 @@ public class ResourceManager : MonoBehaviour
 
         UnityEngine.Object.Destroy(obj);
     }
+
+
+
 }

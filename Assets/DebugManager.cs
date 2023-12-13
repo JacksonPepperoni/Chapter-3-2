@@ -11,7 +11,7 @@ public class DebugManager : MonoBehaviour
     }
 
    
-    public void ADDTEST() // ÀÎº¥¿¡ ·£´ıÀ¸·Î ¾ÆÀÌÅÛ Ãß°¡ÇÏ´Â ¹öÆ°
+    public void ADDTEST() // ì¸ë²¤ì— ëœë¤ìœ¼ë¡œ ì•„ì´í…œ ì¶”ê°€í•˜ëŠ” ë²„íŠ¼
     {
         
         Managers.Game.player.Inven_Add(Random.Range(0, Managers.Data.items_Equip.Keys.Count));

@@ -363,8 +363,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   name: 
-  anim: {fileID: 0}
-  NameTagObj: {fileID: 6956025944829239574}
+  _nameTag: {fileID: 6956025944829239574}
+  atk: 0
+  def: 0
+  maxHp: 0
 --- !u!1 &4537587610158548254
 GameObject:
   m_ObjectHideFlags: 0

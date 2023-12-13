@@ -1,4 +1,4 @@
-﻿
+
 public class UI_Popup_State : UI_Popup
 {
     enum GameObjects
@@ -57,6 +57,11 @@ public class UI_Popup_State : UI_Popup
 
         GetText((int)Texts.maxHpText).text = $"체력 : {Managers.Game.player.maxHp}";
 
+    }
+
+    private void OnDisable()
+    {
+        Managers.Game.OnStateTextChanged -= TextUpdate;
     }
 
     public void OnPointerDown()

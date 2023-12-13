@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.AddressableAssets;
+
 public class DataManager
 {
 
@@ -14,27 +16,44 @@ public class DataManager
     public UserData userData = new UserData();
 
 
+
     public bool Initialize()
     {
         if (_Initialized) return false;
 
         _csv_Item_Equip = CSVReader.Read("ItemData");
 
-        for (int i = 0; i < _csv_Item_Equip.Count; i++) //CSV¹Ş¾Æ¿Â°Å Çüº¯È¯ÇÏ°í Å¬·¡½º¿¡ ³Ö±â Àåºñ csv³Ö±â
+
+
+
+        for (int i = 0; i < _csv_Item_Equip.Count; i++) //CSVë°›ì•„ì˜¨ê±° í˜•ë³€í™˜í•˜ê³  í´ë˜ìŠ¤ì— ë„£ê¸° ì¥ë¹„ csvë„£ê¸°
         {
             Item_Equip item = new();
 
             item.Initialize((int)_csv_Item_Equip[i]["ID"],
-                   _csv_Item_Equip[i]["ÀÌ¸§"].ToString(),
-                   _csv_Item_Equip[i]["¼³¸í"].ToString(),
-                   (int)_csv_Item_Equip[i]["°¡°İ"],
-                   null); ; // ÀÌ¹ÌÁö ¾îµå·¡¼­ºí¿¡¼­ ºÒ·¯¿Í¼­ ³Ö±â  csv_Item_Equip[i]["¾ÆÀÌÄÜÆÄÀÏ¸í]
+                   _csv_Item_Equip[i]["ì´ë¦„"].ToString(),
+                   _csv_Item_Equip[i]["ì„¤ëª…"].ToString(),
+                   (int)_csv_Item_Equip[i]["ê°€ê²©"],
+               Resources.Load<Sprite>($"Test/{_csv_Item_Equip[i]["ì´ë¯¸ì§€íŒŒì¼ëª…"].ToString()}"));
 
 
-            item.part = ((Define.EquipParts)((int)_csv_Item_Equip[i]["ºÎÀ§"]));
-            item.buff_MaxHp = (int)_csv_Item_Equip[i]["ÃÖ´ë»ı¸í·Â"];
-            item.buff_Atk = (int)_csv_Item_Equip[i]["°ø°İ·Â"];
-            item.buff_Def = (int)_csv_Item_Equip[i]["¹æ¾î·Â"];
+
+            //Managers.Resource.Load<Sprite>(_csv_Item_Equip[i]["ì´ë¯¸ì§€íŒŒì¼ëª…"].ToString() +".png"));
+            //  null);
+
+            //  Addressables.LoadAssetAsync<Sprite>($"{_csv_Item_Equip[i]["ì´ë¯¸ì§€íŒŒì¼ëª…"].ToString()}.png").Result); 
+
+
+        //    Debug.Log(Managers.Resource.Load<Sprite>(_csv_Item_Equip[i]["ì´ë¯¸ì§€íŒŒì¼ëª…"].ToString() + ".png"));
+            //            Debug.Log(Addressables.LoadAssetAsync<Sprite>($"{_csv_Item_Equip[i]["ì´ë¯¸ì§€íŒŒì¼ëª…"].ToString()}.png").Result);
+
+
+            // ì´ë¯¸ì§€ ì–´ë“œë˜ì„œë¸”ì—ì„œ ë¶ˆëŸ¬ì™€ì„œ ë„£ê¸°  
+
+            item.part = ((Define.EquipParts)((int)_csv_Item_Equip[i]["ë¶€ìœ„"]));
+            item.buff_MaxHp = (int)_csv_Item_Equip[i]["ìµœëŒ€ìƒëª…ë ¥"];
+            item.buff_Atk = (int)_csv_Item_Equip[i]["ê³µê²©ë ¥"];
+            item.buff_Def = (int)_csv_Item_Equip[i]["ë°©ì–´ë ¥"];
 
             items_Equip.Add(item.id, item);
         }
@@ -47,14 +66,14 @@ public class DataManager
 
 
 
-    public void UserDataLoad() //ÀúÀåÆÄÀÏ ºÒ·¯¿À±â (ÆÄÀÏ ÀÖ´ÂÁö ¾ø´ÂÁö È®ÀÎÇÏ°í ÀÖÀ¸¸é ±×°É·Î ¾øÀ¸¸é ±âº»µ¥ÀÌÅÍ. °ÔÀÓ µ¥ÀÌÅÍ ºÒ·¯¿À±â´Â ÀÌ°É·Î ÇØ¾ßÇÑ´Ù)
+    public void UserDataLoad() //ì €ì¥íŒŒì¼ ë¶ˆëŸ¬ì˜¤ê¸° (íŒŒì¼ ìˆëŠ”ì§€ ì—†ëŠ”ì§€ í™•ì¸í•˜ê³  ìˆìœ¼ë©´ ê·¸ê±¸ë¡œ ì—†ìœ¼ë©´ ê¸°ë³¸ë°ì´í„°. ê²Œì„ ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸°ëŠ” ì´ê±¸ë¡œ í•´ì•¼í•œë‹¤)
     {
         string path = Path.Combine(Application.dataPath + "/UserData.json");
         FileInfo fileInfo = new FileInfo(path);
 
-        if (fileInfo.Exists) //ÆÄÀÏ ÀÖÀ»¶§(true), ¾øÀ¸¸é(false)
+        if (fileInfo.Exists) //íŒŒì¼ ìˆì„ë•Œ(true), ì—†ìœ¼ë©´(false)
         {
-            Debug.Log("ÆÄÀÏÀÖ½À´Ï´Ù");
+            Debug.Log("íŒŒì¼ìˆìŠµë‹ˆë‹¤");
             LoadUserDataFromJson();
         }
         else
@@ -65,14 +84,14 @@ public class DataManager
 
     public void SaveUserDataToJson()
     {
-        string jsonData = JsonUtility.ToJson(userData, true); //JsonUtility.ToJson(userData); ÇÏ¸é ¸ğµç µ¥ÀÌÅÍ°¡ 1ÁÙ·Î ÀúÀåµÇ°í trueºÙÀÌ¸é »ç¶÷ÀÌ º¸±âÆíÇÏ°Ô ¿£ÅÍµé¾î°¨
+        string jsonData = JsonUtility.ToJson(userData, true); //JsonUtility.ToJson(userData); í•˜ë©´ ëª¨ë“  ë°ì´í„°ê°€ 1ì¤„ë¡œ ì €ì¥ë˜ê³  trueë¶™ì´ë©´ ì‚¬ëŒì´ ë³´ê¸°í¸í•˜ê²Œ ì—”í„°ë“¤ì–´ê°
         string path = Path.Combine(Application.dataPath + "/UserData.json");
         File.WriteAllText(path, jsonData);
     }
 
     public void LoadUserDataFromJson()
     {
-        string path = Path.Combine(Application.dataPath + "/UserData.json"); //Æú´õ Ãß°¡ÇÏ¸é PC¿¡¼­ ¼¼ÀÌºê¾ÈµÈ´Ù °Á ±âº»°æ·Î¿¡ ÀúÀåÇØ¾ßÇÒµí
+        string path = Path.Combine(Application.dataPath + "/UserData.json"); //í´ë” ì¶”ê°€í•˜ë©´ PCì—ì„œ ì„¸ì´ë¸Œì•ˆëœë‹¤ ê± ê¸°ë³¸ê²½ë¡œì— ì €ì¥í•´ì•¼í• ë“¯
         string jsonData = File.ReadAllText(path);
         userData = JsonUtility.FromJson<UserData>(jsonData);
     }
@@ -89,7 +108,7 @@ public class DataManager
         SaveUserDataToJson();
     }
 }
-// int´Â nullÀÌ ¾ø´Ù
+// intëŠ” nullì´ ì—†ë‹¤
 
-//_csv_Item_Equip[i]["¼³¸í"].ToString().Replace("<br>", "\n"), // ³»°¡ ¿£ÅÍÀûÀº ºÎºĞÀ» ÁøÂ¥ ¿£ÅÍ·Î ¹Ù²Ù±â   // °³Çà¹®ÀÚ¸¦ \n´ë½Å <br>·Î »ç¿ëÇÑ´Ù.
+//_csv_Item_Equip[i]["ì„¤ëª…"].ToString().Replace("<br>", "\n"), // ë‚´ê°€ ì—”í„°ì ì€ ë¶€ë¶„ì„ ì§„ì§œ ì—”í„°ë¡œ ë°”ê¾¸ê¸°   // ê°œí–‰ë¬¸ìë¥¼ \nëŒ€ì‹  <br>ë¡œ ì‚¬ìš©í•œë‹¤.
 
