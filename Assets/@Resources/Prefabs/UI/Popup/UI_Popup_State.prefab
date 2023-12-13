@@ -32,10 +32,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9148057905872130457}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &845409827859041411
 CanvasRenderer:
@@ -65,8 +65,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 63d6cec7e04b6be4bb88bf689833ae9a, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 223f145fa2c91d748a58af7bf8d86969, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.3
 --- !u!1 &2964888345656091605
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,7 +553,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB2A5\uB825\uCE58\uB2A5\uB825\uCE58\uB2A5\uB825\uCE58\uB2A5\uB825\uCE58\uB2A5\uB825\uCE58\uB2A5\uB825\uCE58\uB2A5\uB825\uCE58\uB2A5\uB825\uCE58\uB2A5\uB825\uCE58\uB2A5\uB825\uCE58\uB2A5\uB825\uCE58\uB2A5\uB825\uCE58\u3145\u3133"
+  m_text: "\uCE90\uB9AD\uD130 \uC124\uBA85\uC785\uB2C8\uB2E4 \uCE90\uB9AD\uD130 \uC124\uBA85\uC785\uB2C8\uB2E4
+    \uCE90\uB9AD\uD130 \uC124\uBA85\uC785\uB2C8\uB2E4 "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4885c50c290542941afdc2b7626de0d4, type: 2}
   m_sharedMaterial: {fileID: 1141935520080708901, guid: 4885c50c290542941afdc2b7626de0d4, type: 2}
@@ -902,7 +903,7 @@ GameObject:
   - component: {fileID: 4013045235777908049}
   - component: {fileID: 6524777310845628621}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -924,7 +925,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 329}
+  m_AnchoredPosition: {x: 0, y: 259}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4013045235777908049
@@ -955,7 +956,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC544\uC774\uD15C\uC774\uB984"
+  m_text: "\uCE90\uB9AD\uD130\uBA85"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4885c50c290542941afdc2b7626de0d4, type: 2}
   m_sharedMaterial: {fileID: 1141935520080708901, guid: 4885c50c290542941afdc2b7626de0d4, type: 2}
@@ -1089,7 +1090,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1098,7 +1099,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 1.05
 --- !u!1 &7959025480116078194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,7 +1343,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 265}
+  m_AnchoredPosition: {x: 0, y: 305}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5591036979271337033
@@ -1373,7 +1374,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB2A5\uB825\uCE58"
+  m_text: "\uD0C0\uC774\uD2C0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4885c50c290542941afdc2b7626de0d4, type: 2}
   m_sharedMaterial: {fileID: 1141935520080708901, guid: 4885c50c290542941afdc2b7626de0d4, type: 2}
@@ -1400,8 +1401,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.23
-  m_fontSizeBase: 33.23
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

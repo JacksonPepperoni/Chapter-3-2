@@ -1,9 +1,4 @@
-﻿using DG.Tweening.Core.Easing;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class Managers : MonoBehaviour
 {

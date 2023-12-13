@@ -1,19 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 public class UI_Popup_State : UI_Popup
 {
     enum GameObjects
     {
-       
+
     }
     enum Texts
     {
         atkText,
-        defText,
         maxHpText,
-
+        defText, 
+        NameText
     }
 
     enum Buttons
@@ -23,17 +20,6 @@ public class UI_Popup_State : UI_Popup
         CancelBtn
     }
 
-    private int _maxInvenLength = 10;
-
-
-    private void OnEnable()
-    {
-        Initialize();
-
-
-        TextUpdate();
-
-    }
 
     public override bool Initialize()
     {
@@ -43,7 +29,6 @@ public class UI_Popup_State : UI_Popup
         BindObject(typeof(GameObjects));
         BindButton(typeof(Buttons));
         BindText(typeof(Texts));
-        
 
 
         GetButton((int)Buttons.CancelBtn).gameObject.BindEvent(OnPointerDown);
@@ -51,17 +36,26 @@ public class UI_Popup_State : UI_Popup
         GetButton((int)Buttons.RightBtn).gameObject.BindEvent(OnBtnRight);
         GetButton((int)Buttons.LeftBtn).gameObject.BindEvent(OnBtnLeft);
 
+        Managers.Game.OnStateTextChanged -= TextUpdate;
+        Managers.Game.OnStateTextChanged += TextUpdate;
+
+        TextUpdate();
 
         return true;
     }
 
+    private void Start()
+    {
+        Initialize();
+    }
+
     void TextUpdate()
     {
-
         GetText((int)Texts.atkText).text = $"공격력 : {Managers.Game.player.atk}";
-        GetText((int)Texts.defText).text = $"방어력 : {Managers.Game.player.def}";
-        GetText((int)Texts.maxHpText).text = $"체력 : {Managers.Game.player.maxHp}";
 
+        GetText((int)Texts.defText).text = $"방어력 : {Managers.Game.player.def}";
+
+        GetText((int)Texts.maxHpText).text = $"체력 : {Managers.Game.player.maxHp}";
 
     }
 
@@ -74,7 +68,7 @@ public class UI_Popup_State : UI_Popup
     public void OnBtnLeft()
     {
         Managers.UI.ClosePopupUI(this);
-   Managers.UI.ShowPopupUI<UI_Popup_Inven>();
+        Managers.UI.ShowPopupUI<UI_Popup_Inven>();
 
     }
     public void OnBtnRight()

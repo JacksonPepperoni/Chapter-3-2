@@ -23,6 +23,7 @@ public class UI_Scene_Game : UI_Scene
     {
         if (!base.Initialize()) return false;
 
+
         BindButton(typeof(Buttons));
 
 

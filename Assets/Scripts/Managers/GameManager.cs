@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class GameManager
 {
 
     public Action OnEquipChanged;
+    public Action OnStateTextChanged;
+
 
     public Action<int> OnEquipInfoEnter;
     public Action OnEquipInfoExit;

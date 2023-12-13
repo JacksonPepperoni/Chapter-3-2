@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -30,13 +26,15 @@ public class UI_Inven_Slot : UI_Base
         ItemIcon,
     }
 
-    [HideInInspector] public Item_Equip item_Equip;
+    [HideInInspector] public Item_Equip item_Equip = null;
 
-    void OnEnable()
+    [HideInInspector] public int slotNumber;
+    void Start()
     {
         Initialize();
-   
+
     }
+
 
     public override bool Initialize()
     {
@@ -47,54 +45,71 @@ public class UI_Inven_Slot : UI_Base
         Bind<GameObject>(typeof(GameObjects));
         Bind<Image>(typeof(Images));
 
-
         GetImage((int)Images.ItemIcon).gameObject.BindEvent(null, OnButtonEnter, Define.UIEvent.PointerEnter);
         GetImage((int)Images.ItemIcon).gameObject.BindEvent(null, OnButtonExit, Define.UIEvent.PointerExit);
         GetImage((int)Images.ItemIcon).gameObject.BindEvent(OnButtonClick);
 
-        GetObject((int)GameObjects.EquipCheck).SetActive(false);
-        if (item_Equip != null)
-            GetObject((int)GameObjects.EquipCheck).SetActive(item_Equip.isEquip);
-
         GetImage((int)Images.Highlight_Back).gameObject.SetActive(false);
         GetImage((int)Images.Highlight_Front).gameObject.SetActive(false);
 
+        Refresh();
 
+        Managers.Game.OnEquipChanged -= Refresh;
+        Managers.Game.OnEquipChanged += Refresh;
 
         return true;
     }
 
+    void Refresh()
+    {
+        GetImage((int)Images.ItemIcon).color = (Managers.Data.userData.invenGetArray[slotNumber]) ? Color.white : Color.gray;
+        GetObject((int)GameObjects.EquipCheck).SetActive(Managers.Data.userData.isWearArray[slotNumber]);
+
+
+    }
+
+
 
     void OnButtonClick()
     {
-        if (item_Equip == null) return;
+        if (!Managers.Data.userData.invenGetArray[slotNumber]) return;
 
-        if (item_Equip.isEquip)
-        {
-            if (Managers.Game.player.UnEquip(item_Equip.id))
-            {   item_Equip.isEquip = false;
-                GetObject((int)GameObjects.EquipCheck).SetActive(false);
-
-            }
-        }
+        if (Managers.Data.userData.isWearArray[slotNumber])
+            UnEquip();
         else
-        {
-            if (Managers.Game.player.Equip(item_Equip.id))
-            {
-                item_Equip.isEquip = true; 
-                GetObject((int)GameObjects.EquipCheck).SetActive(true); 
-            }
-               
-        }
+            Equip();
     }
+
+
+    public void Equip()
+    {
+        Managers.Data.userData.isWearArray[slotNumber] = true;
+        Refresh();
+        Managers.Data.SaveUserDataToJson();
+
+
+        Managers.Game.OnEquipChanged();
+
+        Debug.Log($"{Managers.Data.items_Equip[slotNumber].name} ¿Â¬¯øœ∑·");
+    }
+
+    public void UnEquip()
+    {
+        Managers.Data.userData.isWearArray[slotNumber] = false;
+        Refresh();
+        Managers.Data.SaveUserDataToJson();
+        Managers.Game.OnEquipChanged();
+        Debug.Log($"{Managers.Data.items_Equip[slotNumber].name} ¿Â¬¯«ÿ¡¶");
+    }
+
+
 
     public void OnButtonEnter(BaseEventData data)
     {
-
         GetImage((int)Images.Highlight_Back).gameObject.SetActive(true);
         GetImage((int)Images.Highlight_Front).gameObject.SetActive(true);
 
-        if (item_Equip != null) Managers.Game.OnEquipInfoEnter(item_Equip.id);
+        Managers.Game.OnEquipInfoEnter(item_Equip.id);
 
     }
     public void OnButtonExit(BaseEventData data)
@@ -102,8 +117,6 @@ public class UI_Inven_Slot : UI_Base
         GetImage((int)Images.Highlight_Back).gameObject.SetActive(false);
         GetImage((int)Images.Highlight_Front).gameObject.SetActive(false);
 
-        if (item_Equip != null) Managers.Game.OnEquipInfoExit();
+        Managers.Game.OnEquipInfoExit();
     }
-
-
 }
