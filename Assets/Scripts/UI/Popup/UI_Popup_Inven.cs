@@ -9,7 +9,14 @@ public class UI_Popup_Inven : UI_Popup
        
     }
 
-    int maxInvenLength = 10;
+    enum Buttons
+    {
+        LeftBtn,
+        RightBtn,
+        CancelBtn
+    }
+
+    private int _maxInvenLength = 10;
 
 
     private void OnEnable()
@@ -23,20 +30,42 @@ public class UI_Popup_Inven : UI_Popup
 
 
         BindObject(typeof(GameObjects));
+        BindButton(typeof(Buttons));
 
- 
- 
-        for (int i = 0; i < maxInvenLength; i++)
+
+        GetButton((int)Buttons.CancelBtn).gameObject.BindEvent(OnPointerDown);
+
+
+
+        GetButton((int)Buttons.RightBtn).gameObject.BindEvent(OnBtnRight);
+        GetButton((int)Buttons.LeftBtn).gameObject.BindEvent(OnBtnLeft);
+
+        for (int i = 0; i < _maxInvenLength; i++)
         {
 
-      //      GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
-
-
-            //    GameObject item = Managers.UI.MakeSubItem<UI_Inven_Item>(gridPanel.transform).gameObject;            
-            ////     UI_Inven_Item invenItem = item.GetOrAddComponent<UI_Inven_Item>();
-            //    invenItem.SetInfo($"집행검{i}번");
+   
         }
 
         return true;
     }
+
+    public void OnPointerDown()
+    {
+        Managers.UI.ClosePopupUI(this);
+
+    }
+
+    public void OnBtnLeft()
+    {
+        Managers.UI.ClosePopupUI(this);
+        Managers.UI.ShowPopupUI<UI_Popup_State>();
+
+    }
+    public void OnBtnRight()
+    {
+        Managers.UI.ClosePopupUI(this);
+        Managers.UI.ShowPopupUI<UI_Popup_State>();
+
+    }
+
 }

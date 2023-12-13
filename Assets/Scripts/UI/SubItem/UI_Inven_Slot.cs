@@ -10,8 +10,6 @@ public class UI_Inven_Slot : UI_Base
 {
     enum Buttons
     {
-        UseBtn,
-        CancelBtn
 
     }
 
@@ -22,11 +20,12 @@ public class UI_Inven_Slot : UI_Base
 
     enum GameObjects
     {
-        CheckPanel
     }
 
     enum Images
     {
+        Highlight_Front,
+        Highlight_Back,
         ItemIcon,
     }
 
@@ -47,56 +46,38 @@ public class UI_Inven_Slot : UI_Base
         Bind<Image>(typeof(Images));
 
 
-        GetObject((int)GameObjects.CheckPanel).SetActive(false);
-
         GetText((int)Texts.CapacityText).text = $"{capacity}";
 
 
         GetImage((int)Images.ItemIcon).gameObject.BindEvent(null, OnButtonEnter, Define.UIEvent.PointerEnter);
         GetImage((int)Images.ItemIcon).gameObject.BindEvent(null, OnButtonExit, Define.UIEvent.PointerExit);
-
         GetImage((int)Images.ItemIcon).gameObject.BindEvent(OnButtonClick);
 
 
+        GetImage((int)Images.Highlight_Back).gameObject.SetActive(false);
+        GetImage((int)Images.Highlight_Front).gameObject.SetActive(false);
 
-        GetButton((int)Buttons.UseBtn).gameObject.BindEvent(Use);
-        GetButton((int)Buttons.CancelBtn).gameObject.BindEvent(Cancel);
+
 
         return true;
     }
 
     void OnButtonClick()
     {
-        _UI_Popup_Tooltip.Hide(null);
-        GetObject((int)GameObjects.CheckPanel).SetActive(true);
+
     }
-
-    void Use()
-    {
-        Debug.Log("사용했습니다");
-        GetObject((int)GameObjects.CheckPanel).SetActive(false);
-    }
-
-    void Cancel()
-    {
-        GetObject((int)GameObjects.CheckPanel).SetActive(false);
-    }
-
-
-
-    private UI_Popup_Tooltip _UI_Popup_Tooltip;
-
 
     public void OnButtonEnter(BaseEventData data)
     {
-        _UI_Popup_Tooltip = Managers.UI.ShowPopupUI<UI_Popup_Tooltip>();
-        _UI_Popup_Tooltip.Show(this.name, this.name + "입니다 실험중 테스트 테스트 야호야호");
 
+        GetImage((int)Images.Highlight_Back).gameObject.SetActive(true);
+        GetImage((int)Images.Highlight_Front).gameObject.SetActive(true);
 
     }
     public void OnButtonExit(BaseEventData data)
     {
-        _UI_Popup_Tooltip.Hide(data);
+        GetImage((int)Images.Highlight_Back).gameObject.SetActive(false);
+        GetImage((int)Images.Highlight_Front).gameObject.SetActive(false);
 
     }
 
