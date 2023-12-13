@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 
 public class UI_Popup_Inven : UI_Popup
 {
@@ -24,11 +25,13 @@ public class UI_Popup_Inven : UI_Popup
         BuffText,
         ItemComentText,
 
-
-
     }
     enum Images
     {
+        Equip1,
+        Equip2,
+        Equip3,
+
         ItemIcon
     }
 
@@ -66,6 +69,9 @@ public class UI_Popup_Inven : UI_Popup
         Managers.Game.OnEquipChanged();
 
 
+        GetImage((int)Images.Equip1).gameObject.SetActive(false);
+        GetImage((int)Images.Equip2).gameObject.SetActive(false);
+        GetImage((int)Images.Equip3).gameObject.SetActive(false);
 
         return true;
     }
@@ -85,17 +91,23 @@ public class UI_Popup_Inven : UI_Popup
     public void ShowItemInfo(int id)
     {
         GetText((int)Texts.ItemNameText).text = Managers.Data.items_Equip[id].name;
-        GetText((int)Texts.BuffText).text = $"공격력 : {Managers.Data.items_Equip[id].buff_Atk} / 방어력 : {Managers.Data.items_Equip[3].buff_Def} / 최대생명력 :  {Managers.Data.items_Equip[3].buff_MaxHp}";
+        GetText((int)Texts.BuffText).text =
+                 ((Managers.Data.items_Equip[id].buff_Atk != 0) ? $"공격력 : {Managers.Data.items_Equip[id].buff_Atk}    " : "") +
+                 ((Managers.Data.items_Equip[id].buff_Def != 0) ? $"방어력 : {Managers.Data.items_Equip[id].buff_Def}    " : "") +
+                 ((Managers.Data.items_Equip[id].buff_MaxHp != 0) ? $"최대생명력 : {Managers.Data.items_Equip[id].buff_MaxHp}" : "");
+
+
+
         GetText((int)Texts.ItemComentText).text = Managers.Data.items_Equip[id].comment;
 
-         if (GetObject((int)GameObjects.InfoPanel) != null)
-        GetObject((int)GameObjects.InfoPanel).SetActive(true);
+        if (GetObject((int)GameObjects.InfoPanel) != null)
+            GetObject((int)GameObjects.InfoPanel).SetActive(true);
 
     }
     public void CloseItemInfo()
     {
-        if (GetObject((int)GameObjects.InfoPanel) != null) 
-        GetObject((int)GameObjects.InfoPanel).SetActive(false);
+        if (GetObject((int)GameObjects.InfoPanel) != null)
+            GetObject((int)GameObjects.InfoPanel).SetActive(false);
     }
 
 

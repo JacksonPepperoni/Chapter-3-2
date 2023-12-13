@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class DebugManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+   
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    public void ADDTEST()
+   
+    public void ADDTEST() // 인벤에 랜덤으로 아이템 추가하는 버튼
     {
         
         Managers.Game.player.Inven_Add(Random.Range(0, Managers.Data.items_Equip.Keys.Count));
