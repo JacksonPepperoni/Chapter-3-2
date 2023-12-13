@@ -19,11 +19,11 @@ public class Define
         EndDrag,
     }
 
-    public enum MouseEvent
+    public enum EquipParts
     {
-        Press,
-        Click,
+        무기,
+        몸,
+        장신구
     }
 
-    
 }

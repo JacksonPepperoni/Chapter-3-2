@@ -32,19 +32,19 @@ public class Managers : MonoBehaviour
         }
     }
     private readonly SceneManagerEx _scene = new();
-    private readonly InputManager _input = new();
     private readonly PoolManager _pool = new();
     private readonly ResourceManager _resource = new();
     //  private readonly ObjectManager _objects = new();
     private readonly UIManager _ui = new();
+    private readonly DataManager _data = new();
+    private readonly GameManager _game = new();
 
-
-    public static InputManager Input => Instance?._input;
     public static PoolManager Pool => Instance?._pool;
     public static ResourceManager Resource => Instance?._resource;
     //   public static ObjectManager Object => Instance?._objects;
     public static UIManager UI => Instance?._ui;
-
+    public static GameManager Game => Instance?._game;
+    public static DataManager Data => Instance?._data;
     public static SceneManagerEx Scene => Instance?._scene;
 
     public static void Clear()

@@ -29,6 +29,7 @@ public class UI_Scene_Game : UI_Scene
 
         GetButton((int)Buttons.InvenBtn).gameObject.BindEvent(OnPointerDownInven);
 
+        GetButton((int)Buttons.OptionBtn).gameObject.BindEvent(OnPointerDownOption);
         GetButton((int)Buttons.StateBtn).gameObject.BindEvent(OnPointerDownState);
         return true;
     }
@@ -41,6 +42,11 @@ public class UI_Scene_Game : UI_Scene
     void OnPointerDownState()
     {
         Managers.UI.ShowPopupUI<UI_Popup_State>();
+
+    }
+    void OnPointerDownOption()
+    {
+        Managers.UI.ShowPopupUI<UI_Popup_Option>();
 
     }
 }

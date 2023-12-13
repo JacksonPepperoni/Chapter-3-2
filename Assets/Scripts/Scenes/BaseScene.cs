@@ -13,7 +13,7 @@ public class BaseScene : MonoBehaviour
     {
         if (Managers.Resource.Loaded)
         {
-          //  Managers.Data.Initialize();
+            Managers.Data.Initialize();
           //  Managers.Game.Initialize();
             Initialize();
         }
@@ -21,11 +21,11 @@ public class BaseScene : MonoBehaviour
         {
             Managers.Resource.LoadAllAsync<UnityEngine.Object>("PreLoad", (key, count, totalCount) =>
             {
-                Debug.Log($"[GameScene] Load asset {key} ({count}/{totalCount})");
+               // Debug.Log($"[GameScene] Load asset {key} ({count}/{totalCount})");
                 if (count >= totalCount)
                 {
                     Managers.Resource.Loaded = true;
-                //    Managers.Data.Initialize();
+                  Managers.Data.Initialize();
                 //    Managers.Game.Initialize();
                     Initialize();
                 }

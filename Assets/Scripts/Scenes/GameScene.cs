@@ -9,6 +9,7 @@ public class GameScene : BaseScene
         if (!base.Initialize()) return false;
 
         Managers.UI.ShowSceneUI<UI_Scene_Game>();
+        Managers.Game.player = Managers.Resource.InstantiatePrefab("Player.prefab").GetComponent<Player>();
 
         return true;
     }

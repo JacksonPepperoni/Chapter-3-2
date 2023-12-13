@@ -42,7 +42,7 @@ MonoBehaviour:
     - PreLoad
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dbf43d41b79c3704e95b7bdc79d7d2c4
-    m_Address: UI_Popup_HollowPanel.prefab
+    m_Address: UI_Popup_Option.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
@@ -61,6 +61,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e394e01b97cad4f409afe6d3f7167c7e
     m_Address: UI_Popup_State.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PreLoad
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b9996676a824f8b4abf0df893de3d6b7
+    m_Address: Player.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - PreLoad
