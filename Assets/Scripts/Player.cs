@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     private Npc npc; // 접촉중인거
 
-   [SerializeField] private NameTag _nameTag;
+    [SerializeField] private NameTag _nameTag;
 
 
     [HideInInspector] public int atk = 0;

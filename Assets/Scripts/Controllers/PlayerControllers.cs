@@ -16,7 +16,7 @@ public class PlayerControllers : MonoBehaviour
     private float speed = 7;
 
 
-   [HideInInspector] public string name;
+    [HideInInspector] public string name;
 
 
     private Camera _camera;
@@ -116,7 +116,7 @@ public class PlayerControllers : MonoBehaviour
 
         if (state == State.Event)
         {
-         //   gameManager.dialogue.Talk();
+            //   gameManager.dialogue.Talk();
             return;
         }
 
@@ -124,8 +124,8 @@ public class PlayerControllers : MonoBehaviour
         anim.SetBool(hashIsWalk, false);
 
         npc.Talk();
-      //  gameManager.dialogue.talkDic = npc.talkData;
-      ///  gameManager.dialogue.Open();
+        //  gameManager.dialogue.talkDic = npc.talkData;
+        ///  gameManager.dialogue.Open();
 
     }
 

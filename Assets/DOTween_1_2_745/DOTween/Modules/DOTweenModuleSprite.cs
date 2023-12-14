@@ -2,15 +2,14 @@
 // Created: 2018/07/13
 
 #if true // MODULE_MARKER
-using System;
-using UnityEngine;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using UnityEngine;
 
 #pragma warning disable 1591
 namespace DG.Tweening
 {
-	public static class DOTweenModule
+    public static class DOTweenModule
 
     {
         #region Shortcuts
@@ -46,9 +45,11 @@ namespace DG.Tweening
             Sequence s = DOTween.Sequence();
             GradientColorKey[] colors = gradient.colorKeys;
             int len = colors.Length;
-            for (int i = 0; i < len; ++i) {
+            for (int i = 0; i < len; ++i)
+            {
                 GradientColorKey c = colors[i];
-                if (i == 0 && c.time <= 0) {
+                if (i == 0 && c.time <= 0)
+                {
                     target.color = c.color;
                     continue;
                 }
@@ -76,11 +77,12 @@ namespace DG.Tweening
         {
             endValue = endValue - target.color;
             Color to = new Color(0, 0, 0, 0);
-            return DOTween.To(() => to, x => {
-                    Color diff = x - to;
-                    to = x;
-                    target.color += diff;
-                }, endValue, duration)
+            return DOTween.To(() => to, x =>
+            {
+                Color diff = x - to;
+                to = x;
+                target.color += diff;
+            }, endValue, duration)
                 .Blendable().SetTarget(target);
         }
 
@@ -89,6 +91,6 @@ namespace DG.Tweening
         #endregion
 
         #endregion
-	}
+    }
 }
 #endif

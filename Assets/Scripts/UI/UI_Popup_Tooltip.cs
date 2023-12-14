@@ -1,8 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using static Define;
 
 public class UI_Popup_Tooltip : UI_Popup
 {

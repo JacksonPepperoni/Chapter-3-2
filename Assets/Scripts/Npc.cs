@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Npc : MonoBehaviour
@@ -15,8 +14,8 @@ public class Npc : MonoBehaviour
 
     Dictionary<Name, string> npcNames = new Dictionary<Name, string>
     {
-    { Name.plant, "Ãæ½ÄÀÌ" },
-    { Name.slug, "¿¡½ºÄ«¸£°í" },
+    { Name.plant, "ì¶©ì‹ì´" },
+    { Name.slug, "ì—ìŠ¤ì¹´ë¥´ê³ " },
      };
 
 
@@ -29,9 +28,9 @@ public class Npc : MonoBehaviour
         {
             talkData = new Dictionary<int, DialogueSetting>
             {
-         //      { 0, new DialogueSetting(npcNames[name], "³Ê´Â ÆÄ¸® ¸ÔÀ» ¶§ ¹» »Ñ·Á¼­ ¸Ô´Ï?", 0.02f) },
-         //      { 1, new DialogueSetting(npcNames[name], "¹¹? ÆÄ¸®¸¦ ¾È ¸Ô´Â´Ù°í?!", 0.02f) },
-         //      { 2, new DialogueSetting(npcNames[name], "¸»µµ ¾È µÅ!! ±×°Ç ½Ä¹®È­ÀÇ ºØ±«¶ó±¸!!!!", 0.02f) }
+                //      { 0, new DialogueSetting(npcNames[name], "ë„ˆëŠ” íŒŒë¦¬ ë¨¹ì„ ë•Œ ë­˜ ë¿Œë ¤ì„œ ë¨¹ë‹ˆ?", 0.02f) },
+                //      { 1, new DialogueSetting(npcNames[name], "ë­? íŒŒë¦¬ë¥¼ ì•ˆ ë¨¹ëŠ”ë‹¤ê³ ?!", 0.02f) },
+                //      { 2, new DialogueSetting(npcNames[name], "ë§ë„ ì•ˆ ë¼!! ê·¸ê±´ ì‹ë¬¸í™”ì˜ ë¶•ê´´ë¼êµ¬!!!!", 0.02f) }
             };
         }
         else

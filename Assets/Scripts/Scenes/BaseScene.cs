@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,19 +12,19 @@ public class BaseScene : MonoBehaviour
         if (Managers.Resource.Loaded)
         {
             Managers.Data.Initialize();
-          //  Managers.Game.Initialize();
+            //  Managers.Game.Initialize();
             Initialize();
         }
         else
         {
             Managers.Resource.LoadAllAsync<UnityEngine.Object>("PreLoad", (key, count, totalCount) =>
             {
-               // Debug.Log($"[GameScene] Load asset {key} ({count}/{totalCount})");
+                // Debug.Log($"[GameScene] Load asset {key} ({count}/{totalCount})");
                 if (count >= totalCount)
                 {
                     Managers.Resource.Loaded = true;
-                  Managers.Data.Initialize();
-                //    Managers.Game.Initialize();
+                    Managers.Data.Initialize();
+                    //    Managers.Game.Initialize();
                     Initialize();
                 }
             });

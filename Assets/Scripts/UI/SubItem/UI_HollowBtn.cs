@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using UnityEngine.EventSystems;
 
 public class UI_HollowBtn : UI_Base
@@ -30,7 +28,7 @@ public class UI_HollowBtn : UI_Base
     private static readonly int hashClick = Animator.StringToHash("Click");
 
 
-   [SerializeField] private string _menuName;
+    [SerializeField] private string _menuName;
 
     private RectTransform _rec;
     private Animator _anim;

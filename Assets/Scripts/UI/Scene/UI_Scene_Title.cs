@@ -1,7 +1,3 @@
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
-
 public class UI_Scene_Title : UI_Scene
 {
 
@@ -22,7 +18,7 @@ public class UI_Scene_Title : UI_Scene
 
         BindButton(typeof(Buttons));
 
-          GetButton((int)Buttons.StartBtn).gameObject.BindEvent(OnButtonStart);
+        GetButton((int)Buttons.StartBtn).gameObject.BindEvent(OnButtonStart);
 
 
 

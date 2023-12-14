@@ -1,7 +1,3 @@
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
-
 public class UI_Popup_Inven : UI_Popup
 {
 

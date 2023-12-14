@@ -9,7 +9,7 @@ public class UI_Popup_State : UI_Popup
     {
         atkText,
         maxHpText,
-        defText, 
+        defText,
         NameText
     }
 

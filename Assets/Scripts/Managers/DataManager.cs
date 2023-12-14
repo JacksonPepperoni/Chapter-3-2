@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
-using UnityEngine.AddressableAssets;
+using UnityEngine;
 
 public class DataManager
 {
@@ -44,7 +42,7 @@ public class DataManager
             //  Addressables.LoadAssetAsync<Sprite>($"{_csv_Item_Equip[i]["이미지파일명"].ToString()}.png").Result); 
 
 
-        //    Debug.Log(Managers.Resource.Load<Sprite>(_csv_Item_Equip[i]["이미지파일명"].ToString() + ".png"));
+            //    Debug.Log(Managers.Resource.Load<Sprite>(_csv_Item_Equip[i]["이미지파일명"].ToString() + ".png"));
             //            Debug.Log(Addressables.LoadAssetAsync<Sprite>($"{_csv_Item_Equip[i]["이미지파일명"].ToString()}.png").Result);
 
 
