@@ -31,7 +31,7 @@ public class UI_Scene_Game : UI_Scene
 
     }
 
-    int maxHeartCount = 10;
+    int maxHeartCount = 8;
     void OnEnable()
     {
         Initialize();

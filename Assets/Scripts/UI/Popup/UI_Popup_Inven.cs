@@ -36,7 +36,7 @@ public class UI_Popup_Inven : UI_Popup
     }
 
 
-    public void OnEnabled()
+    public void OnEnable()
     {
         Initialize();
     }

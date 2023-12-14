@@ -1,10 +1,23 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UI_Popup_Option : UI_Popup
 {
     enum Buttons
     {
         CancelBtn
+    }
+
+    enum GameObjects
+    {
+
+        BtnPanel
+    }
+
+    enum Texts
+    {
+
+        NameText
     }
 
     private Animator _anim;
@@ -26,8 +39,12 @@ public class UI_Popup_Option : UI_Popup
         if (!base.Initialize()) return false;
 
         BindButton(typeof(Buttons));
+        BindObject(typeof(GameObjects));
+        BindText(typeof(Texts));
 
-        GetButton((int)Buttons.CancelBtn).gameObject.BindEvent(OnPointerDown);
+
+        GetText((int)Texts.NameText).gameObject.BindEvent(null, OnPointerDown, Define.UIEvent.PointerDown);
+        //  GetButton((int)Buttons.CancelBtn).gameObject.BindEvent(null, OnPointerDown, Define.UIEvent.PointerDown);
 
         _anim.SetBool("isOpen", true);
 
@@ -35,12 +52,13 @@ public class UI_Popup_Option : UI_Popup
 
     }
 
-    public void OnPointerDown()
+    public void OnPointerDown(BaseEventData data)
     {
-        Debug.Log("≈¨∏Ø");
-        _anim.SetBool("isOpen", false);
-        Managers.UI.ClosePopupUI(this);
+        Debug.Log("ÌÅ¥Î¶≠");
 
+        _anim.SetBool("isOpen", false);
+       
+        Managers.UI.ClosePopupUI(this);
     }
 
 

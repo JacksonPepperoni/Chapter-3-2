@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 09f44d5b851f627499486b872ed9b68c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e510c80aaf58c364c83e109a67288583, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -84,7 +84,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4026041797905840200}
-  - component: {fileID: 3983265651661165236}
   - component: {fileID: 5235513268002601457}
   m_Layer: 5
   m_Name: BtnPanel
@@ -115,14 +114,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &3983265651661165236
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626301259155272012}
-  m_CullTransparentMesh: 1
 --- !u!225 &5235513268002601457
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -133,7 +124,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 1
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &3999289361114308137
 GameObject:
@@ -550,7 +541,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bb8e47927637c944da028873ccebabdb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7f18ab086d19dbe4d8fcf9819d64f73d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -653,12 +644,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8072484368373811379, guid: b1d78b98593b4724dbe98daa4245d7f7, type: 3}
-      propertyPath: menuName
-      value: ASDAS
-      objectReference: {fileID: 0}
-    - target: {fileID: 8072484368373811379, guid: b1d78b98593b4724dbe98daa4245d7f7, type: 3}
       propertyPath: _menuName
-      value: asdasdasdasd
+      value: "\uADF8\uB798\uD53D"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -748,7 +735,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4623440836734089238, guid: b1d78b98593b4724dbe98daa4245d7f7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -313
+      value: -337
       objectReference: {fileID: 0}
     - target: {fileID: 4623440836734089238, guid: b1d78b98593b4724dbe98daa4245d7f7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -763,12 +750,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8072484368373811379, guid: b1d78b98593b4724dbe98daa4245d7f7, type: 3}
-      propertyPath: menuName
-      value: D
-      objectReference: {fileID: 0}
-    - target: {fileID: 8072484368373811379, guid: b1d78b98593b4724dbe98daa4245d7f7, type: 3}
       propertyPath: _menuName
-      value: asdasdasdasd
+      value: "\uC18C\uB9AC\uC124\uC815"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -858,7 +841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4623440836734089238, guid: b1d78b98593b4724dbe98daa4245d7f7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -365
+      value: -408
       objectReference: {fileID: 0}
     - target: {fileID: 4623440836734089238, guid: b1d78b98593b4724dbe98daa4245d7f7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -872,13 +855,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8072484368373811379, guid: b1d78b98593b4724dbe98daa4245d7f7, type: 3}
-      propertyPath: menuName
-      value: DSADASD
+    - target: {fileID: 5286617213480713467, guid: b1d78b98593b4724dbe98daa4245d7f7, type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286617213480713467, guid: b1d78b98593b4724dbe98daa4245d7f7, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286617213480713467, guid: b1d78b98593b4724dbe98daa4245d7f7, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8072484368373811379, guid: b1d78b98593b4724dbe98daa4245d7f7, type: 3}
       propertyPath: _menuName
-      value: asdasdasdasd
+      value: "\uB098\uAC00\uAE30"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

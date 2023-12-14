@@ -21,7 +21,7 @@ public class UI_HollowBtn : UI_Base
 
     }
 
-    // ºÎ¸ğ ¹Ş±â
+    // ë¶€ëª¨ ë°›ê¸°
 
 
     private static readonly int hashIsOn = Animator.StringToHash("isOn");
@@ -32,16 +32,11 @@ public class UI_HollowBtn : UI_Base
 
     private RectTransform _rec;
     private Animator _anim;
-    private AudioSource _audioSource;
-
-    [SerializeField] private AudioClip aaup;
-    [SerializeField] private AudioClip aaclick;
 
     void Start()
     {
         _rec = GetComponent<RectTransform>();
         _anim = GetComponent<Animator>();
-        _audioSource = GetComponent<AudioSource>();
 
 
         BindObject(typeof(GameObjects));
@@ -52,12 +47,16 @@ public class UI_HollowBtn : UI_Base
 
         GetText((int)Texts.NameText).text = _menuName;
 
-        _rec.sizeDelta = new Vector2(GetText((int)Texts.NameText).preferredWidth + 45, GetText((int)Texts.NameText).preferredHeight + 25); //¹öÆ° Å¬¸¯¹üÀ§°¡ µü ±Û¾¾Ä­¸¸µÇ¼­ ¿©ºĞ´õÇÏ±â
+        _rec.sizeDelta = new Vector2(GetText((int)Texts.NameText).preferredWidth + 45, GetText((int)Texts.NameText).preferredHeight + 25); //ë²„íŠ¼ í´ë¦­ë²”ìœ„ê°€ ë”± ê¸€ì”¨ì¹¸ë§Œë˜ì„œ ì—¬ë¶„ë”í•˜ê¸°
 
 
-        GetButton((int)Buttons.ClickBtn).gameObject.BindEvent(null, OnPointerEnter, Define.UIEvent.PointerEnter);
-        GetButton((int)Buttons.ClickBtn).gameObject.BindEvent(null, OnPointerExit, Define.UIEvent.PointerExit);
-        GetButton((int)Buttons.ClickBtn).gameObject.BindEvent(OnPointerDown);
+        GetText((int)Texts.NameText).gameObject.BindEvent(null, OnPointerEnter, Define.UIEvent.PointerEnter);
+        GetText((int)Texts.NameText).gameObject.BindEvent(null, OnPointerExit, Define.UIEvent.PointerExit);
+        GetText((int)Texts.NameText).gameObject.BindEvent(OnPointerDown);
+
+      //  GetButton((int)Buttons.ClickBtn).gameObject.BindEvent(null, OnPointerEnter, Define.UIEvent.PointerEnter);
+     //   GetButton((int)Buttons.ClickBtn).gameObject.BindEvent(null, OnPointerExit, Define.UIEvent.PointerExit);
+    //    GetButton((int)Buttons.ClickBtn).gameObject.BindEvent(OnPointerDown);
 
     }
 
@@ -65,7 +64,6 @@ public class UI_HollowBtn : UI_Base
 
     public void OnPointerEnter(BaseEventData data)
     {
-        _audioSource.PlayOneShot(aaup);
         _anim.SetBool(hashIsOn, true);
     }
 
@@ -79,12 +77,12 @@ public class UI_HollowBtn : UI_Base
 
         if (!_anim.GetBool(hashIsOn)) return;
 
-        _audioSource.PlayOneShot(aaclick);
 
         _anim.SetTrigger(hashClick);
         _anim.SetBool(hashIsOn, false);
 
-        // Ã¢²¨Áö´Â°Íµµ ÀÖ¾î¾ßÇÔ.
+
+        Managers.UI.CloseAllPopupUI(); // íŠ¹ë‹¨ì˜ì¡°ì¹˜
 
     }
 
