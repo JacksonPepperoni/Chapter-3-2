@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-
     public enum State
     {
         Play,
@@ -12,9 +11,7 @@ public class Player : MonoBehaviour
     }
     [HideInInspector] public State state = State.Play;
 
-
     private float speed = 7;
-
 
     [HideInInspector] public string name;
 
@@ -33,14 +30,13 @@ public class Player : MonoBehaviour
     [SerializeField] private NameTag _nameTag;
 
 
-    [HideInInspector] public int atk = 0;
-    [HideInInspector] public int def = 0;
-    [HideInInspector] public int maxHp = 0;
-
+    public bool[] isWearArray = new bool[21]; // 입고있는지
+    public bool[] invenGetArray = new bool[21]; // 인벤 아이템 해금여부
 
 
     private void Awake()
     {
+
         _anim = transform.GetChild(0).GetComponent<Animator>();
         spriteRenderer = _anim.gameObject.GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
@@ -74,29 +70,25 @@ public class Player : MonoBehaviour
         Managers.Data.userData.invenGetArray[number] = false;
         Managers.Data.SaveUserDataToJson();
     }
-    void StateReset() //기본스탯
-    {
-        atk = 10;
-        def = 10;
-        maxHp = 3;
-    }
+
     void StatUpdate()
     {
-        StateReset(); // 초기 스탯으로
+        Managers.Data.userData.maxHp = Managers.Data.userData.de_maxHp;
+        Managers.Data.userData.atk = Managers.Data.userData.de_atk;
+        Managers.Data.userData.def = Managers.Data.userData.de_def;
+
 
         for (int i = 0; i < Managers.Data.userData.isWearArray.Length; i++)
         {
             if (Managers.Data.userData.isWearArray[i])
             {
-                atk += Managers.Data.items_Equip[i].buff_Atk;
-                def += Managers.Data.items_Equip[i].buff_Def;
-                maxHp += Managers.Data.items_Equip[i].buff_MaxHp;
+                Managers.Data.userData.atk += Managers.Data.items_Equip[i].buff_Atk;
+                Managers.Data.userData.def += Managers.Data.items_Equip[i].buff_Def;
+                Managers.Data.userData.maxHp += Managers.Data.items_Equip[i].buff_MaxHp;
+
             }
         }
-
-
-        Managers.Game.OnStateTextChanged?.Invoke();
-
+        Managers.Data.SaveUserDataToJson();
     }
 
 

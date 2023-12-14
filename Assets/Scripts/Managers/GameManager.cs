@@ -2,12 +2,14 @@ using System;
 public class GameManager
 {
 
+     public Action OnGoldChanged;
+
+    //  public Action OnEquipmentChanged;
+
+    
     public Action OnEquipChanged;
-    public Action OnStateTextChanged;
 
-
-    public Action<int> OnEquipInfoEnter;
-    public Action OnEquipInfoExit;
+    public Action HpBarOnly;
 
     public Player player;
 

@@ -5,15 +5,6 @@ using UnityEngine.UI;
 
 public class UI_Inven_Slot : UI_Base
 {
-    enum Buttons
-    {
-
-    }
-
-    enum Texts
-    {
-    }
-
     enum GameObjects
     {
         EquipCheck
@@ -29,10 +20,11 @@ public class UI_Inven_Slot : UI_Base
     [HideInInspector] public Item_Equip item_Equip = null;
 
     [HideInInspector] public int slotNumber;
+
+    [HideInInspector] public UI_Popup_Inven uI_Popup_Inven;
     void OnEnable()
     {
         Initialize();
-
     }
 
 
@@ -40,8 +32,6 @@ public class UI_Inven_Slot : UI_Base
     {
         if (!base.Initialize()) return false;
 
-        BindButton(typeof(Buttons));
-        BindText(typeof(Texts));
         BindObject(typeof(GameObjects));
         BindImage(typeof(Images));
 
@@ -54,24 +44,17 @@ public class UI_Inven_Slot : UI_Base
 
         Refresh();
 
-        Managers.Game.OnEquipChanged -= Refresh;
-        Managers.Game.OnEquipChanged += Refresh;
-
         return true;
     }
 
-    void Refresh()
+  public void Refresh()
     {
 
         GetImage((int)Images.ItemIcon).sprite = Managers.Data.items_Equip[slotNumber].IconImage;
-
         GetImage((int)Images.ItemIcon).color = (Managers.Data.userData.invenGetArray[slotNumber]) ? Color.white : Color.gray;
-
         GetObject((int)GameObjects.EquipCheck).SetActive(Managers.Data.userData.isWearArray[slotNumber]);
 
     }
-
-
 
     void OnButtonClick()
     {
@@ -87,11 +70,11 @@ public class UI_Inven_Slot : UI_Base
     public void Equip()
     {
         Managers.Data.userData.isWearArray[slotNumber] = true;
-        Refresh();
+    
         Managers.Data.SaveUserDataToJson();
-
-
+        Refresh();
         Managers.Game.OnEquipChanged?.Invoke();
+        Managers.Game.HpBarOnly?.Invoke();
 
         Debug.Log($"{Managers.Data.items_Equip[slotNumber].name} 장착완료");
     }
@@ -101,8 +84,12 @@ public class UI_Inven_Slot : UI_Base
         Managers.Data.userData.isWearArray[slotNumber] = false;
         Refresh();
         Managers.Data.SaveUserDataToJson();
+
         Managers.Game.OnEquipChanged?.Invoke();
+        Managers.Game.HpBarOnly?.Invoke();
         Debug.Log($"{Managers.Data.items_Equip[slotNumber].name} 장착해제");
+
+
     }
 
 
@@ -112,7 +99,7 @@ public class UI_Inven_Slot : UI_Base
         GetImage((int)Images.Highlight_Back).gameObject.SetActive(true);
         GetImage((int)Images.Highlight_Front).gameObject.SetActive(true);
 
-        Managers.Game.OnEquipInfoEnter?.Invoke(item_Equip.id);
+       uI_Popup_Inven.ShowItemInfo(item_Equip.id);
 
     }
     public void OnButtonExit(BaseEventData data)
@@ -120,11 +107,7 @@ public class UI_Inven_Slot : UI_Base
         GetImage((int)Images.Highlight_Back).gameObject.SetActive(false);
         GetImage((int)Images.Highlight_Front).gameObject.SetActive(false);
 
-        Managers.Game.OnEquipInfoExit?.Invoke();
+        uI_Popup_Inven.CloseItemInfo();
     }
 
-    private void OnDisable()
-    {
-        Managers.Game.OnEquipChanged -= Refresh;
-    }
 }

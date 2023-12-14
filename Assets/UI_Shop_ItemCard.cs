@@ -6,33 +6,23 @@ using UnityEngine.EventSystems;
 
 public class UI_Shop_ItemCard : UI_Base
 {
-
-    enum GameObjects
-    {
-        InfoPanel,
-        EquipInvenPanel
-    }
-
-    enum Buttons
-    {
-        LeftBtn,
-        RightBtn,
-        CancelBtn
-    }
-
     enum Texts
     {
-        ItemNameText,
-        ItemComentText,
+        ItemPriceText
 
     }
     enum Images
     {
         ItemIcon
-    }
 
-    [HideInInspector] public int itemId;
-    void Start()
+    }
+    [HideInInspector] public Item_Equip item_Equip = null;
+    [HideInInspector] public UI_Popup_Shop uI_Popup_Shop;
+
+    bool isGet = false;
+
+
+    void OnEnable()
     {
         Initialize();
     }
@@ -42,49 +32,54 @@ public class UI_Shop_ItemCard : UI_Base
     {
         if (!base.Initialize()) return false;
 
-        BindButton(typeof(Buttons));
         BindText(typeof(Texts));
-        BindObject(typeof(GameObjects));
         BindImage(typeof(Images));
+
 
         GetImage((int)Images.ItemIcon).gameObject.BindEvent(null, OnButtonEnter, Define.UIEvent.PointerEnter);
         GetImage((int)Images.ItemIcon).gameObject.BindEvent(null, OnButtonExit, Define.UIEvent.PointerExit);
         GetImage((int)Images.ItemIcon).gameObject.BindEvent(OnButtonClick);
 
 
-
-        Refresh();
+        Managers.Game.OnGoldChanged -= PurcCheck;
+        Managers.Game.OnGoldChanged += PurcCheck;
 
 
         return true;
     }
 
-    void Refresh()
+    public void Refresh()
     {
-
-        GetImage((int)Images.ItemIcon).sprite = Managers.Data.items_Equip[itemId].IconImage;
-        GetImage((int)Images.ItemIcon).color = (Managers.Data.userData.invenGetArray[itemId]) ? Color.white : Color.gray;
-        GetObject((int)GameObjects.InfoPanel).SetActive(Managers.Data.userData.isWearArray[itemId]);
+        GetText((int)Texts.ItemPriceText).text = $"{item_Equip.price}원";
+        GetImage((int)Images.ItemIcon).sprite = item_Equip.IconImage;
 
     }
-
+    public void PurcCheck()
+    {
+        isGet = Managers.Data.userData.invenGetArray[item_Equip.id];
+        GetImage((int)Images.ItemIcon).color = isGet ? Color.gray : Color.white;
+    }
 
 
     void OnButtonClick()
     {
-       
+        if (isGet) return;
+
+        uI_Popup_Shop.PurchasePopupOpen(item_Equip.id);
     }
-
-
 
     public void OnButtonEnter(BaseEventData data)
     {
+        uI_Popup_Shop.ShowItemInfo(item_Equip.id);
 
     }
     public void OnButtonExit(BaseEventData data)
     {
-
-        Managers.Game.OnEquipInfoExit?.Invoke();
+        uI_Popup_Shop.CloseItemInfo();
     }
 
+    private void OnDisable()
+    {
+        Managers.Game.OnGoldChanged -= PurcCheck;
+    }
 }

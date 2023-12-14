@@ -77,6 +77,7 @@ public class DataManager
         else
         {
             DefaultUserData();
+            SaveUserDataToJson();
         }
     }
 
@@ -104,8 +105,11 @@ public class DataManager
         }
 
         userData.gold = 1000;
+        userData.maxHp = 3;
+        userData.atk = 10;
+        userData.def = 10;
 
-        SaveUserDataToJson();
+
     }
 }
 // int는 null이 없다
