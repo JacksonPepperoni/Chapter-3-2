@@ -29,7 +29,7 @@ public class UI_Inven_Slot : UI_Base
     [HideInInspector] public Item_Equip item_Equip = null;
 
     [HideInInspector] public int slotNumber;
-    void Start()
+    void OnEnable()
     {
         Initialize();
 
@@ -40,10 +40,10 @@ public class UI_Inven_Slot : UI_Base
     {
         if (!base.Initialize()) return false;
 
-        Bind<Button>(typeof(Buttons));
-        Bind<TextMeshProUGUI>(typeof(Texts));
-        Bind<GameObject>(typeof(GameObjects));
-        Bind<Image>(typeof(Images));
+        BindButton(typeof(Buttons));
+        BindText(typeof(Texts));
+        BindObject(typeof(GameObjects));
+        BindImage(typeof(Images));
 
         GetImage((int)Images.ItemIcon).gameObject.BindEvent(null, OnButtonEnter, Define.UIEvent.PointerEnter);
         GetImage((int)Images.ItemIcon).gameObject.BindEvent(null, OnButtonExit, Define.UIEvent.PointerExit);
@@ -67,8 +67,7 @@ public class UI_Inven_Slot : UI_Base
 
         GetImage((int)Images.ItemIcon).color = (Managers.Data.userData.invenGetArray[slotNumber]) ? Color.white : Color.gray;
 
-        if (GetObject((int)GameObjects.EquipCheck) != null)
-            GetObject((int)GameObjects.EquipCheck).SetActive(Managers.Data.userData.isWearArray[slotNumber]);
+        GetObject((int)GameObjects.EquipCheck).SetActive(Managers.Data.userData.isWearArray[slotNumber]);
 
     }
 

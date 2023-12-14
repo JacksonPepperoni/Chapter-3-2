@@ -103,6 +103,8 @@ public class DataManager
             userData.isWearArray[i] = false;
         }
 
+        userData.gold = 1000;
+
         SaveUserDataToJson();
     }
 }

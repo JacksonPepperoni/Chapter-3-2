@@ -1,6 +1,18 @@
 public class UI_Scene_Game : UI_Scene
 {
 
+  
+    enum Images
+    {
+      
+
+    }
+    enum GameObjects
+    {
+        Character,
+        Cursor,
+    }
+
     enum Buttons
     {
         InvenBtn,
@@ -8,8 +20,12 @@ public class UI_Scene_Game : UI_Scene
         OptionBtn
 
     }
+    enum Texts
+    {
+       GoldText
 
-    void Start()
+    }
+    void OnEnable()
     {
         Initialize();
     }
@@ -18,29 +34,35 @@ public class UI_Scene_Game : UI_Scene
     {
         if (!base.Initialize()) return false;
 
-
         BindButton(typeof(Buttons));
+        BindText(typeof(Texts));
+        BindObject(typeof(GameObjects));
+        BindImage(typeof(Images));
+
+
+        GetButton((int)Buttons.InvenBtn).gameObject.BindEvent(OnBtnInven);
+        GetButton((int)Buttons.StateBtn).gameObject.BindEvent(OnBtnState);
+        GetButton((int)Buttons.OptionBtn).gameObject.BindEvent(OnBtnOption);
 
 
 
-        GetButton((int)Buttons.InvenBtn).gameObject.BindEvent(OnPointerDownInven);
+        GetText((int)Texts.GoldText).text = $"{Managers.Data.userData.gold}원";
 
-        GetButton((int)Buttons.OptionBtn).gameObject.BindEvent(OnPointerDownOption);
-        GetButton((int)Buttons.StateBtn).gameObject.BindEvent(OnPointerDownState);
+
         return true;
     }
 
-    void OnPointerDownInven()
+    void OnBtnInven()
     {
         Managers.UI.ShowPopupUI<UI_Popup_Inven>();
 
     }
-    void OnPointerDownState()
+    void OnBtnState()
     {
         Managers.UI.ShowPopupUI<UI_Popup_State>();
 
     }
-    void OnPointerDownOption()
+    void OnBtnOption()
     {
         Managers.UI.ShowPopupUI<UI_Popup_Option>();
 

@@ -6,7 +6,6 @@ public class UI_Popup_Inven : UI_Popup
     {
         InfoPanel,
         EquipInvenPanel
-
     }
 
     enum Buttons
@@ -18,6 +17,10 @@ public class UI_Popup_Inven : UI_Popup
 
     enum Texts
     {
+        atkText,
+        maxHpText,
+        defText,
+
         ItemNameText,
         BuffText,
         ItemComentText,
@@ -36,7 +39,6 @@ public class UI_Popup_Inven : UI_Popup
     public void OnEnabled()
     {
         Initialize();
-
     }
 
     public override bool Initialize()
@@ -48,33 +50,37 @@ public class UI_Popup_Inven : UI_Popup
         BindButton(typeof(Buttons));
         BindImage(typeof(Images));
 
-        GetButton((int)Buttons.RightBtn).gameObject.BindEvent(OnBtnRight);
-        GetButton((int)Buttons.LeftBtn).gameObject.BindEvent(OnBtnLeft);
+        GetButton((int)Buttons.LeftBtn).gameObject.BindEvent(OnBtnLeftPage);
+        GetButton((int)Buttons.RightBtn).gameObject.BindEvent(OnBtnRightPage);
         GetButton((int)Buttons.CancelBtn).gameObject.BindEvent(OnBtnCancel);
 
         GetObject((int)GameObjects.InfoPanel).SetActive(false);
 
-
-        GetImage((int)Images.Equip1).gameObject.SetActive(false);
-        GetImage((int)Images.Equip2).gameObject.SetActive(false);
-        GetImage((int)Images.Equip3).gameObject.SetActive(false);
+        CreateSlot();
 
         Managers.Game.OnEquipInfoEnter -= ShowItemInfo;
         Managers.Game.OnEquipInfoEnter += ShowItemInfo;
-
         Managers.Game.OnEquipInfoExit -= CloseItemInfo;
         Managers.Game.OnEquipInfoExit += CloseItemInfo;
 
-        Managers.Game.OnEquipChanged?.Invoke();
+        Managers.Game.OnStateTextChanged -= PlayerStatTextRefresh;
+        Managers.Game.OnStateTextChanged += PlayerStatTextRefresh;
 
-        AddSlot();
+        Managers.Game.OnEquipChanged?.Invoke();
 
         return true;
     }
 
 
+    void PlayerStatTextRefresh()
+    {
+        GetText((int)Texts.atkText).text = $"공격력 : {Managers.Game.player.atk}";
+        GetText((int)Texts.defText).text = $"방어력 : {Managers.Game.player.def}";
+        GetText((int)Texts.maxHpText).text = $"체력 : {Managers.Game.player.maxHp}";
 
-    private void AddSlot()
+    }
+
+    private void CreateSlot()
     {
         for (int i = 0; i < Managers.Data.items_Equip.Keys.Count; i++)
         {
@@ -95,9 +101,8 @@ public class UI_Popup_Inven : UI_Popup
                  ((Managers.Data.items_Equip[id].buff_Def != 0) ? $"방어력 : {Managers.Data.items_Equip[id].buff_Def}    " : "") +
                  ((Managers.Data.items_Equip[id].buff_MaxHp != 0) ? $"최대생명력 : {Managers.Data.items_Equip[id].buff_MaxHp}" : "");
 
-        //  if(GetImage((int)Images.ItemIcon).sprite != null)
+      
         GetImage((int)Images.ItemIcon).sprite = Managers.Data.items_Equip[id].IconImage;
-
 
 
 
@@ -107,38 +112,35 @@ public class UI_Popup_Inven : UI_Popup
 
         GetText((int)Texts.ItemComentText).text = Managers.Data.items_Equip[id].comment;
 
-        if (GetObject((int)GameObjects.InfoPanel) != null)
             GetObject((int)GameObjects.InfoPanel).SetActive(true);
 
     }
     public void CloseItemInfo()
     {
-        if (GetObject((int)GameObjects.InfoPanel) != null)
             GetObject((int)GameObjects.InfoPanel).SetActive(false);
     }
 
 
-    public void OnBtnLeft()
-    {
-        Managers.UI.ClosePopupUI(this);
-        Managers.UI.ShowPopupUI<UI_Popup_State>();
-    }
-    public void OnBtnRight()
-    {
-        Managers.UI.ClosePopupUI(this);
-        Managers.UI.ShowPopupUI<UI_Popup_State>();
-    }
-
     public void OnBtnCancel()
     {
-
-
         Managers.UI.ClosePopupUI(this);
+    }
+
+    public void OnBtnLeftPage()
+    {
+        Managers.UI.ClosePopupUI(this);
+        Managers.UI.ShowPopupUI<UI_Popup_State>();
+    }
+    public void OnBtnRightPage()
+    {
+        Managers.UI.ClosePopupUI(this);
+        Managers.UI.ShowPopupUI<UI_Popup_State>();
+
     }
     private void OnDisable()
     {
         Managers.Game.OnEquipInfoEnter -= ShowItemInfo;
         Managers.Game.OnEquipInfoExit -= CloseItemInfo;
-
+        Managers.Game.OnStateTextChanged -= PlayerStatTextRefresh;
     }
 }

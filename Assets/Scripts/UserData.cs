@@ -1,7 +1,9 @@
 
 public class UserData
 {
-    public bool[] isWearArray = new bool[21]; // ÀÔ°íÀÖ´ÂÁö
-    public bool[] invenGetArray = new bool[21]; // ÀÎº¥ ¾ÆÀÌÅÛ ÇØ±İ¿©ºÎ
+    public bool[] isWearArray = new bool[21]; // ì…ê³ ìˆëŠ”ì§€
+    public bool[] invenGetArray = new bool[21]; // ì¸ë²¤ ì•„ì´í…œ í•´ê¸ˆì—¬ë¶€
+
+    public int gold = 0;
 
 }
