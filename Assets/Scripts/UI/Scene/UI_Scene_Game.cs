@@ -95,7 +95,13 @@ public class UI_Scene_Game : UI_Scene
 
         for (int i = 0; i < Managers.Data.userData.maxHp; i++)
         {
+            if (i >= maxHeartCount)
+                break;
+
             GetObject((int)GameObjects.HpPanel).transform.GetChild(i).gameObject.SetActive(true);
+
+     
+
         }
 
     }
